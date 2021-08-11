@@ -1,7 +1,8 @@
 import CSV
 import Foundation
 
-let path = "/Users/yangxijie/Desktop/CCCC 语音记账/PROJECT/TestData-CSV/导出 数据集.csv"
+// 修改这里并授予CSV权限
+let path = "/Users/yangxijie/Desktop/CCCC 浣熊财记/PROJECT/TestData-CSV/测试数据集.csv"
 
 let stream = InputStream(fileAtPath: path)!
 let csv = try! CSVReader(stream: stream, hasHeaderRow: true)
@@ -10,7 +11,9 @@ let headerRow = csv.headerRow!
 // print("\(headerRow)")
 
 var counter: Int = 1
-var command = "let testMetaItems: [MetaItem] = ["
+
+var testDataFile = "import Foundation\nimport SwiftDate\n\n// [测试数据]\n\n"
+var testMetaItemsArray = "let testMetaItems: [MetaItem] = ["
 
 while let _ = csv.next() {
 //    print("\(csv["originalText"]!)")
@@ -77,14 +80,22 @@ while let _ = csv.next() {
     )
     """
 
-    command = command + "testMetaItem_\(counter), "
+    testMetaItemsArray += "testMetaItem_\(counter), "
 
-    print(data)
-    print()
+    testDataFile += data + "\n\n"
 
-    counter = counter + 1
+    counter += 1
 }
 
-command = command + "]"
+testMetaItemsArray += "]"
 
-print(command)
+// 将所有MetaItem整合在一起
+testDataFile += testMetaItemsArray + "\n\n"
+
+// 添加Swift Flag
+testDataFile = "#if DEV\n\n" + testDataFile + "#endif\n\n"
+
+// 添加操作提示
+testDataFile += "//复制log、粘贴到项目、删掉最后一行、格式化"
+
+print(testDataFile)
