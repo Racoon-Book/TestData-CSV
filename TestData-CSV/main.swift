@@ -13,7 +13,7 @@ let headerRow = csv.headerRow!
 var counter: Int = 1
 
 var testDataFile = "import Foundation\nimport SwiftDate\n\n// [测试数据]\n\n"
-var testMetaItemsArray = "let testMetaItems: [MetaItem] = ["
+var testMetaItemsArray = "let testExpenseInfos: [ExpenseInfo] = ["
 
 while let _ = csv.next() {
 //    print("\(csv["originalText"]!)")
@@ -32,11 +32,11 @@ while let _ = csv.next() {
 //    print("\(csv["story.text"]!)")
 
     var data = """
-    let testMetaItem_\(counter) = MetaItem(
+    let testExpenseInfo_\(counter) = ExpenseInfo(
         originalText: "\(csv["originalText"]!)",
-        spentMoneyAt: "\(csv["spentMoneyAt"]!)".toDate("yyMMdd", region: regionChina) ?? DateInRegion(region: regionChina),
+        spentAt: "\(csv["spentAt"]!)".toDate("yyMMdd", region: regionChina) ?? DateInRegion(region: regionChina),
         event: "\(csv["event"]!)",
-        amount_float: \(csv["amount_float"]!)
+        amount: \(csv["amount"]!)
     """
 
     if "\(csv["tags"]!)" != "" {
@@ -69,7 +69,7 @@ while let _ = csv.next() {
     if "\(csv["story.rating"]!)" != "" {
         data += """
 
-            ,story: MetaItem.Story(rating: \(csv["story.rating"]!),
+            ,story: ExpenseInfo.Story(rating: \(csv["story.rating"]!),
                                   emoji: "\(csv["story.emoji"]!)",
                                   text: "\(csv["story.text"]!)")
         """
@@ -80,7 +80,7 @@ while let _ = csv.next() {
     )
     """
 
-    testMetaItemsArray += "testMetaItem_\(counter), "
+    testMetaItemsArray += "testExpenseInfo_\(counter), "
 
     testDataFile += data + "\n\n"
 
