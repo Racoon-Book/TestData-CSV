@@ -96,6 +96,6 @@ testDataFile += testMetaItemsArray + "\n\n"
 testDataFile = "#if DEV\n\n" + testDataFile + "#endif\n\n"
 
 // 添加操作提示
-testDataFile += "//复制log、粘贴到项目、删掉最后一行、格式化"
+testDataFile += "// 复制log、粘贴到项目、删掉本行、格式化"
 
 print(testDataFile)
