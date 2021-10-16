@@ -2,7 +2,7 @@ import CSV
 import Foundation
 
 // 修改这里并授予CSV权限
-let path = "/Users/yangxijie/Desktop/CCCC 浣熊财记/PROJECT/TestData-CSV/测试数据集.csv"
+let path = "/Users/yangxijie/Desktop/CCCC 浣熊财记/PROJECT/TestData-CSV/testdata.csv"
 
 let stream = InputStream(fileAtPath: path)!
 let csv = try! CSVReader(stream: stream, hasHeaderRow: true)
